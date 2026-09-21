@@ -26,18 +26,3 @@ echo "aws,${INSTANCE_NAME},${INSTANCE_IP},${INSTANCE_STATE},${DATESTAMP},${DATES
 
 done
 
-# # -------------------------------------------
-# # Azure: Capture azure virtual machine state 
-# # --------------------------------------------
-# for rg_name in $(az group list --query "[].name" -o tsv | grep -vE "${IGNORE_RESOURCE_GROUPS}"); do
-#   for azvm_name in $(az vm list -g ${rg_name} --query "[?tags.shutdown=='true'].name" -o tsv); do
-    
-#     echo "INFO: fetching details of Azure Virtual Machine ${azvm_name}."
-
-#     azvm_ip=$(az vm show -d --name ${azvm_name} -g ${rg_name} --query 'privateIps' -o tsv)
-#     azvm_state=$(az vm show -d --name ${azvm_name} -g ${rg_name} --query 'powerState' -o tsv | awk '{print $NF}')
-#     datestamp=$(date +%Y%m%d-%H%M%S)
-    
-#     echo "azure,${azvm_name},${azvm_ip},${azvm_state},${datestamp},shutdown" >> $OUTPUT_CSV_FILE
-#   done
-# done
